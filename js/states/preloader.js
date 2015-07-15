@@ -14,9 +14,11 @@ preloader.prototype = {
     this.game.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
 
     key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    keys={
+      take:this.game.input.keyboard.addKey(Phaser.Keyboard.E)
+    }
   },
   create: function() {
     this.game.state.start('Rot');
   }
 };
- 
