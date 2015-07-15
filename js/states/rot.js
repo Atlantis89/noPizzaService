@@ -6,6 +6,11 @@ var rot = function(game) {
 rot.prototype = {
   create: function() {
     this.SPEED=100;
+    this.pizzas=0;
+    this.cooldowns=[]
+    this.cooldowns['take']=0
+    this.cooldowns['give']=0
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.map = this.game.add.tilemap('map');
@@ -33,14 +38,20 @@ rot.prototype = {
     //move player with cursor keys
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
+    // get target
+    var targets = this.findObjectsByType('target', this.map, 'objects');
+    this.target = targets[Math.floor(Math.random() * targets.length)];
+    this.target.sprite = this.game.add.sprite(this.target.x, this.target.y, 'target');
 
-    targets = this.findObjectsByType('target', this.map, 'objects');
-    target = targets[Math.floor(Math.random() * targets.length)];
-    console.log(targets)
-    target.sprite = this.game.add.sprite(target.x, target.y, 'target');
+    //pizzashop
+    this.pizzashop = this.findObjectsByType('pizzaria', this.map, 'objects')[0];
 
   },
   update: function() {
+    var dt = this.game.time.elapsed;
+    for (var id in this.cooldowns) {
+      this.cooldowns[id]+=dt;
+    }
     this.game.physics.arcade.collide(this.player, this.layers.buildings);
     //player movement
     this.player.body.velocity.y = 0;
@@ -60,6 +71,16 @@ rot.prototype = {
     }
     if (key.isDown) {
       this.game.state.start('Gruen');
+    }
+    if (keys.take.isDown&&this.cooldowns['take']>=0&&Phaser.Point.distance(this.player,this.pizzashop)<20) {
+      this.pizzas+=1;
+      this.cooldowns['take']=-1000;
+      console.log(this.pizzas);
+    }
+    if (keys.take.isDown&&this.cooldowns['give']>=0&&Phaser.Point.distance(this.player,this.target)<20&&this.pizzas>0) {
+      this.pizzas-=1;
+      this.cooldowns['give']=-1000;
+      console.log(this.pizzas);
     }
   },
 
