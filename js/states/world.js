@@ -1,15 +1,15 @@
-var rot = function(game) {
+var world = function(game) {
   console.log("bin in rot");
 };
 
 
-rot.prototype = {
+world.prototype = {
   create: function() {
     this.SPEED=100;
     this.pizzas=0;
-    this.cooldowns=[]
-    this.cooldowns['take']=0
-    this.cooldowns['give']=0
+    this.cooldowns=[];
+    this.cooldowns['take']=0;
+    this.cooldowns['give']=0;
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -18,7 +18,7 @@ rot.prototype = {
     this.map.addTilesetImage('mapTilesTest');
 
     // map.setCollisionBetween(1, 12);
-    this.layers = {}
+    this.layers = {};
     this.layers.ground = this.map.createLayer('walkable');
 
     this.layers.buildings = this.map.createLayer('buildings');
@@ -86,10 +86,10 @@ rot.prototype = {
 
   //find objects in a Tiled layer that containt a property called "type" equal to a certain value
   findObjectsByType: function(type, map, layer) {
-    console.log(map)
-    var result = new Array();
+    console.log(map);
+    var result = [];
     map.objects[layer].forEach(function(element){
-      console.log(element)
+      console.log(element);
       if(element.type === type) {
         //Phaser uses top left, Tiled bottom left so we have to adjust the y position
         //also keep in mind that the cup images are a bit smaller than the tile which is 16x16

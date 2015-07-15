@@ -16,7 +16,7 @@ preloader.prototype = {
     key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
   },
   create: function() {
-    this.game.state.start('Rot');
+    this.game.state.start('world');
   }
 };
  
