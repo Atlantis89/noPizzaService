@@ -39,9 +39,11 @@ world.prototype = {
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
     // get target
-    var targets = this.findObjectsByType('target', this.map, 'objects');
-    this.target = targets[Math.floor(Math.random() * targets.length)];
-    this.target.sprite = this.game.add.sprite(this.target.x, this.target.y, 'target');
+    this.targets = this.findObjectsByType('target', this.map, 'objects');
+    for (var i = 0; i < this.targets.length; i++) {
+      this.targets[i].sprite = this.game.add.sprite(this.targets[i].x, this.targets[i].y, 'target');
+      this.targets[i].cooldown=0;
+    }
 
     //pizzashop
     this.pizzashop = this.findObjectsByType('pizzaria', this.map, 'objects')[0];
@@ -77,10 +79,17 @@ world.prototype = {
       this.cooldowns['take']=-1000;
       console.log(this.pizzas);
     }
-    if (keys.take.isDown&&this.cooldowns['give']>=0&&Phaser.Point.distance(this.player,this.target)<20&&this.pizzas>0) {
-      this.pizzas-=1;
-      this.cooldowns['give']=-1000;
-      console.log(this.pizzas);
+
+    //update targets
+    for (var i = 0; i < this.targets.length; i++) {
+      this.targets[i].cooldown+=dt;
+      this.targets[i].sprite.visible=this.targets[i].cooldown>=0
+      //console.log(Phaser.Point.distance(this.player,this.targets[i]));
+      if (this.targets[i].cooldown>=0&&Phaser.Point.distance(this.player,this.targets[i])<20&&this.pizzas>0) {
+        this.pizzas -= 1;
+        this.targets[i].cooldown = -15000;
+        console.log(this.pizzas);
+      }
     }
   },
 
