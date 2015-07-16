@@ -11,6 +11,7 @@ preloader.prototype = {
     this.game.load.image('player', 'assets/player.png');
     this.game.load.image('target', 'assets/target.png');
     this.game.load.image('mapTilesTest', 'assets/mapTilesTest.png');
+    this.game.load.image('police','assets/Police_asset_still.png')
     this.game.load.tilemap('map', 'assets/map.json', null, Phaser.Tilemap.TILED_JSON);
 
     key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);

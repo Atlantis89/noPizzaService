@@ -48,6 +48,7 @@ world.prototype = {
         //pizzashop
         this.pizzashop = this.findObjectsByType('pizzaria', this.map, 'objects')[0];
 
+        this.createUnits();
     },
     update: function () {
         var dt = this.game.time.elapsed;
@@ -108,5 +109,23 @@ world.prototype = {
             }
         });
         return result;
+    },
+
+    createUnits:function (){
+
+        this.createPolice();
+    }
+    ,
+    createPolice:function () {
+        this.police=[]
+        this.police = this.findObjectsByType('police', this.map, 'objects');
+        for (var i = 0; i < this.police.length; i++) {
+            this.police[i].sprite = this.game.add.sprite(this.police[i].x, this.police[i].y, 'police');
+            this.game.physics.arcade.enable(this.police[i].sprite);
+            this.game.physics.arcade.collide(this.police[i].sprite, this.layers.buildings);
+             this.game.physics.arcade.moveToPointer(this.police[i].sprite,100,{x:(this.police[i].x/32)*32,y: (this.police[i].y/32)*32});
+              this.game.physics.arcade.moveToPointer(this.police[i].sprite,100,0);
+        }
+
     }
 }

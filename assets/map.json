@@ -89,6 +89,22 @@
                  "width":0,
                  "x":334,
                  "y":475
+                }, 
+                {
+                 "gid":9,
+                 "height":0,
+                 "id":9,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"police",
+                 "visible":true,
+                 "width":0,
+                 "x":707,
+                 "y":390
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -97,7 +113,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":8,
+ "nextobjectid":10,
  "orientation":"orthogonal",
  "properties":
     {
