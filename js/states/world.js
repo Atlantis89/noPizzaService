@@ -30,6 +30,7 @@ world.prototype = {
 
         //we know there is just one result
         this.player = this.game.add.sprite(80, 80, 'player');
+        this.player.anchor.setTo(0.5,0.5);
         this.game.physics.arcade.enable(this.player);
 
         //the camera will follow the player in the world
@@ -62,15 +63,19 @@ world.prototype = {
 
         if (this.cursors.up.isDown) {
             this.player.body.velocity.y -= this.SPEED;
+            this.player.angle = 0;
         }
         else if (this.cursors.down.isDown) {
             this.player.body.velocity.y += this.SPEED;
+            this.player.angle = 180;
         }
         if (this.cursors.left.isDown) {
             this.player.body.velocity.x -= this.SPEED;
+            this.player.angle = -90;
         }
         else if (this.cursors.right.isDown) {
             this.player.body.velocity.x += this.SPEED;
+            this.player.angle = 90;
         }
         if (key.isDown) {
             this.game.state.start('Gruen');
@@ -84,7 +89,7 @@ world.prototype = {
         //update targets
         for (var i = 0; i < this.targets.length; i++) {
             this.targets[i].cooldown += dt;
-            this.targets[i].sprite.visible = this.targets[i].cooldown >= 0
+            this.targets[i].sprite.visible = this.targets[i].cooldown >= 0;
             //console.log(Phaser.Point.distance(this.player,this.targets[i]));
             if (this.targets[i].cooldown >= 0 && Phaser.Point.distance(this.player, this.targets[i]) < 20 && this.pizzas > 0) {
                 this.pizzas -= 1;
@@ -92,6 +97,10 @@ world.prototype = {
                 console.log(this.pizzas);
             }
         }
+    },
+    render: function(){
+        this.game.debug.spriteInfo(this.player, 32, 32);
+        this.game.debug.body(this.player);
     },
 
     //find objects in a Tiled layer that containt a property called "type" equal to a certain value
