@@ -80,7 +80,8 @@ world.prototype = {
         if (key.isDown) {
             this.game.state.start('Gruen');
         }
-        if (keys.take.isDown && this.cooldowns['take'] >= 0 && Phaser.Point.distance(this.player, this.pizzashop) < 20) {
+        console.log(Phaser.Point.distance(this.player, this.pizzashop))
+        if (keys.take.isDown && this.cooldowns['take'] >= 0 && Phaser.Point.distance(this.player, this.pizzashop) < 70) {
             this.pizzas += 1;
             this.cooldowns['take'] = -1000;
             console.log(this.pizzas);
@@ -91,7 +92,7 @@ world.prototype = {
             this.targets[i].cooldown += dt;
             this.targets[i].sprite.visible = this.targets[i].cooldown >= 0;
             //console.log(Phaser.Point.distance(this.player,this.targets[i]));
-            if (this.targets[i].cooldown >= 0 && Phaser.Point.distance(this.player, this.targets[i]) < 20 && this.pizzas > 0) {
+            if (this.targets[i].cooldown >= 0 && Phaser.Point.distance(this.player, this.targets[i]) < 70 && this.pizzas > 0) {
                 this.pizzas -= 1;
                 this.targets[i].cooldown = -15000;
                 console.log(this.pizzas);
